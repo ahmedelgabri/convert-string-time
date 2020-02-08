@@ -11,9 +11,7 @@ console.log(to12Hours('23:13')) // 11:13 PM
 
 ### Contribution
 
-This project was bootstrapped with [TSDX](https://github.com/jaredpalmer/tsdx).
-
-## Local Development
+#### Local Development
 
 Below is a list of commands you will probably find useful.
 
