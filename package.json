@@ -1,7 +1,7 @@
 {
   "name": "convert-string-time",
   "description": "Simple utility to convert between 12/24 hours string formats",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "author": "Ahmed El Gabri <ahmed@gabri.me> (https://gabri.me)",
   "main": "dist/index.js",
