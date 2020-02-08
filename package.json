@@ -22,6 +22,7 @@
     "build": "tsdx build",
     "test": "tsdx test",
     "lint": "prettier --list-different && tsdx lint",
+    "publish": "np",
     "prepare": "tsdx build"
   },
   "husky": {
