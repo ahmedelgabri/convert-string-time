@@ -12,9 +12,18 @@ function createParser({
     const matchObject = regex.exec(str)
 
     if (matchObject == null) {
-      throw Error(
-        `Invalid format, please check the format that you passed. Example: ${errorMessageFormat}`,
-      )
+      if ('development' === process.env.NODE_ENV) {
+        console.error(
+          `Invalid format, please check the format that you passed. Example: ${errorMessageFormat}`,
+        )
+      }
+
+      return {
+        hour: null,
+        minutes: null,
+        hasLeadingZero: false,
+        isAm: false,
+      }
     }
 
     const [, parsedHour, parsedMinutes = '00', amOrPm] = matchObject
@@ -54,6 +63,9 @@ function withOrWithoutLeadingZero({
 
 export function to24Hours(str: string) {
   const {hour, minutes, hasLeadingZero, isAm} = twelveHoursParser(str)
+
+  if (hour == null || minutes == null) return ''
+
   const isMidNight = hour === 12 && isAm
   const twentyFourHour = isMidNight ? 0 : 12 + (hour % 12)
 
@@ -65,6 +77,9 @@ export function to24Hours(str: string) {
 
 export function to12Hours(str: string) {
   const {hour, minutes, hasLeadingZero, isAm} = twentyFourHoursParser(str)
+
+  if (hour == null || minutes == null) return ''
+
   const amPmHour = hour === 0 ? 12 : hour <= 12 ? hour : hour % 12
 
   return `${withOrWithoutLeadingZero({

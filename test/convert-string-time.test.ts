@@ -17,9 +17,7 @@ describe("'to12Hours' utility", () => {
   test('throws when it is passed invalid input', () => {
     BAD_INPUTS.forEach(v => {
       // @ts-ignore
-      expect(() => to12Hours(v)).toThrow(
-        'Invalid format, please check the format that you passed. Example: 22:34',
-      )
+      expect(to12Hours(v)).toEqual('')
     })
   })
 })
@@ -37,9 +35,7 @@ describe("'to24Hours' utility", () => {
   test('throws when it is passed invalid input', () => {
     BAD_INPUTS.forEach(v => {
       // @ts-ignore
-      expect(() => to24Hours(v)).toThrow(
-        'Invalid format, please check the format that you passed. Example: 11:54 am',
-      )
+      expect(to24Hours(v)).toEqual('')
     })
   })
 })
