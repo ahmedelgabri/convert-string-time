@@ -2,6 +2,16 @@
 
 Convert time strings between 12/24 hours formats
 
+# Usage
+
+```bash
+$ npm install convert-string-time
+
+# or
+
+$ yarn add convert-string-time
+```
+
 ```ts
 import {to24Hours, to12Hours} from 'convert-string-time'
 
