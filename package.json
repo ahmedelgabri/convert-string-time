@@ -1,0 +1,42 @@
+{
+  "name": "convert-string-time",
+  "description": "Simple utility to convert between 12/24 hours string formats",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": "Ahmed El Gabri <ahmed@gabri.me> (https://gabri.me)",
+  "main": "dist/index.js",
+  "module": "dist/convert-string-time.esm.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "bracketSpacing": false,
+    "proseWrap": "always",
+    "endOfLine": "lf"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.1.2",
+    "husky": "^4.2.1",
+    "np": "^6.0.0",
+    "tsdx": "^0.12.3",
+    "tslib": "^1.10.0",
+    "typescript": "^3.7.5"
+  }
+}
