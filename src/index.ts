@@ -1,23 +1,15 @@
 const TWELVE_HOURS_REGEX = /^(1[0-2]|0?[1-9]):([0-5][0-9])\s?([AaPp][Mm])$/
 const TWENTY_FOUR_HOURS_REGEX = /^([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/
 
-function createParser({
-  regex,
-  errorMessageFormat,
-}: {
-  regex: RegExp
-  errorMessageFormat: string
-}) {
+export function isValidTimeFormat(str: string) {
+  return TWELVE_HOURS_REGEX.test(str) || TWENTY_FOUR_HOURS_REGEX.test(str)
+}
+
+function createParser({regex}: {regex: RegExp}) {
   return (str: string) => {
     const matchObject = regex.exec(str)
 
     if (matchObject == null) {
-      if ('development' === process.env.NODE_ENV) {
-        console.error(
-          `Invalid format, please check the format that you passed. Example: ${errorMessageFormat}`,
-        )
-      }
-
       return {
         hour: null,
         minutes: null,
@@ -43,12 +35,10 @@ function createParser({
 
 const twentyFourHoursParser = createParser({
   regex: TWENTY_FOUR_HOURS_REGEX,
-  errorMessageFormat: '22:34',
 })
 
 const twelveHoursParser = createParser({
   regex: TWELVE_HOURS_REGEX,
-  errorMessageFormat: '11:54 am',
 })
 
 function withOrWithoutLeadingZero({
@@ -64,7 +54,7 @@ function withOrWithoutLeadingZero({
 export function to24Hours(str: string) {
   const {hour, minutes, hasLeadingZero, isAm} = twelveHoursParser(str)
 
-  if (hour == null || minutes == null) return ''
+  if (hour == null || minutes == null) return null
 
   const isMidNight = hour === 12 && isAm
   const twentyFourHour = isMidNight ? 0 : 12 + (hour % 12)
@@ -78,7 +68,7 @@ export function to24Hours(str: string) {
 export function to12Hours(str: string) {
   const {hour, minutes, hasLeadingZero, isAm} = twentyFourHoursParser(str)
 
-  if (hour == null || minutes == null) return ''
+  if (hour == null || minutes == null) return null
 
   const amPmHour = hour === 0 ? 12 : hour <= 12 ? hour : hour % 12
 

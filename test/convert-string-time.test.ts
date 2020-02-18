@@ -9,16 +9,13 @@ describe("'to12Hours' utility", () => {
     ['00:00', '12:00 AM'],
     ['09:00', '09:00 AM'],
     ['17:27', '5:27 PM'],
+    ['', null],
+    ['5:27 PM', null],
+    ...BAD_INPUTS.map(i => [i, null]),
   ])('convert %p to %p', (firstArg, expectedResult) => {
+    //@ts-ignore
     const result = to12Hours(firstArg)
     expect(result).toEqual(expectedResult)
-  })
-
-  test('throws when it is passed invalid input', () => {
-    BAD_INPUTS.forEach(v => {
-      // @ts-ignore
-      expect(to12Hours(v)).toEqual('')
-    })
   })
 })
 
@@ -28,14 +25,12 @@ describe("'to24Hours' utility", () => {
     ['12:00am', '00:00'],
     ['09:00 am', '21:00'],
     ['5:27PM', '17:27'],
+    ['', null],
+    ['17:27', null],
+    ...BAD_INPUTS.map(i => [i, null]),
   ])('convert %p to %p', (firstArg, expectedResult) => {
+    // @ts-ignore
     const result = to24Hours(firstArg)
     expect(result).toEqual(expectedResult)
-  })
-  test('throws when it is passed invalid input', () => {
-    BAD_INPUTS.forEach(v => {
-      // @ts-ignore
-      expect(to24Hours(v)).toEqual('')
-    })
   })
 })
