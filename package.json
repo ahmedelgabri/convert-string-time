@@ -41,8 +41,8 @@
   },
   "devDependencies": {
     "@types/jest": "^25.1.2",
-    "husky": "^4.2.1",
-    "np": "^6.0.0",
+    "husky": "^4.2.3",
+    "np": "^6.1.0",
     "tsdx": "^0.12.3",
     "tslib": "^1.10.0",
     "typescript": "^3.7.5"
