@@ -40,11 +40,11 @@
     "endOfLine": "lf"
   },
   "devDependencies": {
-    "@types/jest": "^25.1.2",
+    "@types/jest": "^25.1.4",
     "husky": "^4.2.3",
-    "np": "^6.1.0",
+    "np": "^6.2.0",
     "tsdx": "^0.12.3",
-    "tslib": "^1.10.0",
-    "typescript": "^3.7.5"
+    "tslib": "^1.11.1",
+    "typescript": "^3.8.3"
   }
 }
