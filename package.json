@@ -18,12 +18,12 @@
     "12 hours"
   ],
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
+    "start": "tsdx watch ./src",
+    "build": "tsdx build ./src",
     "test": "tsdx test",
-    "lint": "prettier --list-different && tsdx lint",
+    "lint": "prettier --list-different && tsdx lint ./src",
     "publish": "np",
-    "prepare": "tsdx build"
+    "prepare": "tsdx build ./src"
   },
   "husky": {
     "hooks": {
@@ -40,11 +40,11 @@
     "endOfLine": "lf"
   },
   "devDependencies": {
-    "@types/jest": "^25.1.4",
+    "@types/jest": "^26.0.9",
     "husky": "^4.2.3",
     "np": "^6.2.0",
-    "tsdx": "^0.12.3",
-    "tslib": "^1.11.1",
+    "tsdx": "^0.13.2",
+    "tslib": "^2.0.1",
     "typescript": "^3.8.3"
   }
 }
