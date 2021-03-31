@@ -1,4 +1,4 @@
-# convert-string-time ![Build Status](https://github.com/ahmedelgabri/convert-string-time/actions/workflows/build.yml/badge.svg) [![](https://badgen.net/bundlephobia/minzip/convert-string-time)](https://bundlephobia.com/result?p=convert-string-time)
+# convert-string-time [![Build Status](https://github.com/ahmedelgabri/convert-string-time/actions/workflows/build.yml/badge.svg)](https://github.com/ahmedelgabri/convert-string-time/actions/workflows/build.yml) [![](https://badgen.net/bundlephobia/minzip/convert-string-time)](https://bundlephobia.com/result?p=convert-string-time)
 
 Convert time strings between 12/24 hours formats
 
