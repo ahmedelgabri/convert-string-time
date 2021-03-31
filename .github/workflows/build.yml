@@ -1,6 +1,13 @@
 name: 'Build'
 
-on: push
+on:
+  push:
+    paths:
+      - 'src/**'
+      - 'package.json'
+      - 'yarn.lock'
+      - '.nvmrc'
+      - 'tsconfig.json'
 
 jobs:
   build:
