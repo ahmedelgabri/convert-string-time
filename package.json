@@ -30,7 +30,6 @@
     "build": "tsdx build ./src",
     "test": "tsdx test",
     "lint": "prettier --list-different && tsdx lint ./src",
-    "publish": "np",
     "prepare": "tsdx build ./src && husky install"
   },
   "prettier": {
