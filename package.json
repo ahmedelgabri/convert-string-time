@@ -7,6 +7,14 @@
   "main": "dist/index.js",
   "module": "dist/convert-string-time.esm.js",
   "typings": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahmedelgabri/convert-string-time.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ahmedelgabri/convert-string-time/issues"
+  },
+  "homepage": "https://github.com/ahmedelgabri/convert-string-time#readme",
   "files": [
     "dist"
   ],
@@ -23,12 +31,7 @@
     "test": "tsdx test",
     "lint": "prettier --list-different && tsdx lint ./src",
     "publish": "np",
-    "prepare": "tsdx build ./src"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
+    "prepare": "tsdx build ./src && husky install"
   },
   "prettier": {
     "printWidth": 80,
@@ -41,10 +44,10 @@
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
-    "husky": "^4.2.3",
+    "husky": "^6.0.0",
     "np": "^7.5.0",
     "tsdx": "^0.14.1",
-    "tslib": "^2.2.0",
-    "typescript": "^4.3.2"
+    "tslib": "^2.3.0",
+    "typescript": "^4.3.4"
   }
 }
