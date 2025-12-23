@@ -61,7 +61,7 @@ function formatHour({
 }
 
 function formatMinutes(minutes: number) {
-  return minutes === 0 ? '00' : minutes
+  return minutes < 10 ? `0${minutes}` : minutes
 }
 
 ///////////////////////////////////////////////////////
@@ -93,8 +93,51 @@ export function to12Hours(str: string) {
 
   if (hour == null || minutes == null) return null
 
+  // Convert 24-hour to 12-hour format
+  // 0 (midnight) and 12 (noon) should display as 12
+  // All other hours use modulo 12
+  const twelveHour = hour === 0 || hour === 12 ? 12 : hour % 12
+
   return `${formatHour({
-    hour: hour === 0 ? 12 : hour % 12,
+    hour: twelveHour,
     hasLeadingZero,
   })}:${formatMinutes(minutes)}${isAm ? ' AM' : ' PM'}`
+}
+
+export interface ParsedTime {
+  format: '12h' | '24h' | null
+  time12h: string | null
+  time24h: string | null
+}
+
+/**
+ * Automatically detects the time format (12-hour or 24-hour) and returns both formats
+ * @param str - Time string in either 12-hour (e.g., "11:00 PM") or 24-hour (e.g., "23:00") format
+ * @returns Object containing the detected format and both 12-hour and 24-hour representations
+ */
+export function parseTime(str: string): ParsedTime {
+  // Check if it's a 12-hour format
+  if (TWELVE_HOURS_REGEX.test(str)) {
+    return {
+      format: '12h',
+      time12h: str,
+      time24h: to24Hours(str),
+    }
+  }
+
+  // Check if it's a 24-hour format
+  if (TWENTY_FOUR_HOURS_REGEX.test(str)) {
+    return {
+      format: '24h',
+      time12h: to12Hours(str),
+      time24h: str,
+    }
+  }
+
+  // Invalid format
+  return {
+    format: null,
+    time12h: null,
+    time24h: null,
+  }
 }
