@@ -1,52 +1,61 @@
 {
   "name": "convert-string-time",
-  "description": "Simple utility to convert between 12/24 hours string formats",
   "version": "4.1.0",
+  "description": "Simple utility to convert between 12/24 hours string formats",
+  "keywords": [
+    "12 hours",
+    "24 hours",
+    "convert",
+    "format",
+    "time"
+  ],
+  "homepage": "https://github.com/ahmedelgabri/convert-string-time#readme",
+  "bugs": {
+    "url": "https://github.com/ahmedelgabri/convert-string-time/issues"
+  },
   "license": "MIT",
   "author": "Ahmed El Gabri <ahmed@gabri.me> (https://gabri.me)",
-  "main": "dist/index.js",
-  "module": "dist/convert-string-time.esm.js",
-  "typings": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ahmedelgabri/convert-string-time.git"
   },
-  "bugs": {
-    "url": "https://github.com/ahmedelgabri/convert-string-time/issues"
-  },
-  "homepage": "https://github.com/ahmedelgabri/convert-string-time#readme",
   "files": [
     "dist"
   ],
-  "keywords": [
-    "time",
-    "format",
-    "convert",
-    "24 hours",
-    "12 hours"
-  ],
-  "scripts": {
-    "start": "tsdx watch ./src",
-    "build": "tsdx build ./src",
-    "test": "tsdx test",
-    "lint": "prettier --list-different && tsdx lint ./src",
-    "prepare": "tsdx build ./src && husky install"
+  "type": "module",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs.js"
+    }
   },
-  "prettier": {
-    "printWidth": 80,
-    "semi": false,
-    "singleQuote": true,
-    "trailingComma": "all",
-    "bracketSpacing": false,
-    "proseWrap": "always",
-    "endOfLine": "lf"
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "pnpm clean && rolldown -c rolldown.config.ts && tsc --project tsconfig.build.json --emitDeclarationOnly",
+    "test": "node --import tsx --test index.test.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint --type-aware --type-check .",
+    "format:check": "oxfmt --check .",
+    "format": "oxfmt .",
+    "prepare": "pnpm build && husky install",
+    "prepack": "pnpm build",
+    "prepublishOnly": "pnpm test && pnpm build",
+    "release:patch": "pnpm version patch && git push --follow-tags",
+    "release:minor": "pnpm version minor && git push --follow-tags",
+    "release:major": "pnpm version major && git push --follow-tags"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.23",
+    "@types/node": "^22.10.2",
     "husky": "^6.0.0",
-    "np": "^7.5.0",
-    "tsdx": "^0.14.1",
-    "tslib": "^2.3.0",
-    "typescript": "^4.3.4"
+    "oxfmt": "^0.20.0",
+    "oxlint": "^1.35.0",
+    "oxlint-tsgolint": "^0.10.0",
+    "rolldown": "^1.0.0-beta.57",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
   }
 }
