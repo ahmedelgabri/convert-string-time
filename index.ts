@@ -2,8 +2,10 @@
 // Parsing
 //////////////////////////////////////////////////////
 
-const TWELVE_HOURS_REGEX = /^(?<hour>(1[0-2]|0?[1-9])):(?<minutes>([0-5][0-9]))\s?(?<amOrPm>([AaPp][Mm]))$/
-const TWENTY_FOUR_HOURS_REGEX = /^(?<hour>(([0-9]|0[0-9]|1[0-9]|2[0-3]))):(?<minutes>([0-5][0-9]))$/
+const TWELVE_HOURS_REGEX =
+  /^(?<hour>(1[0-2]|0?[1-9])):(?<minutes>([0-5][0-9]))\s?(?<amOrPm>([AaPp][Mm]))$/
+const TWENTY_FOUR_HOURS_REGEX =
+  /^(?<hour>(([0-9]|0[0-9]|1[0-9]|2[0-3]))):(?<minutes>([0-5][0-9]))$/
 
 function createParser({regex}: {regex: RegExp}) {
   return (str: string) => {
@@ -18,9 +20,8 @@ function createParser({regex}: {regex: RegExp}) {
       }
     }
 
-    const {
-      groups: {hour: parsedHour, minutes: parsedMinutes, amOrPm} = {},
-    } = matchObject
+    const {groups: {hour: parsedHour, minutes: parsedMinutes, amOrPm} = {}} =
+      matchObject
     const hasLeadingZero =
       typeof parsedHour === 'string' && parsedHour[0] === '0'
 
