@@ -1,6 +1,6 @@
 {
   "name": "convert-string-time",
-  "version": "7.0.1",
+  "version": "7.0.2",
   "description": "Simple utility to convert between 12/24 hours string formats",
   "keywords": [
     "12 hours",
