@@ -6,19 +6,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ['20', '22', '24', '25']
-    name: Node ${{ matrix.node }} sample
+    name: Build and Test
     steps:
       - uses: actions/checkout@v4
-      - name: Setup node
-        uses: actions/setup-node@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: ${{ matrix.node }}
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10
-      - run: pnpm install
-      - run: pnpm test && pnpm lint && pnpm typecheck
-      - run: pnpm build
+          bun-version: latest
+      - run: bun install
+      - run: bun test && bun run lint && bun run typecheck
+      - run: bun run build
