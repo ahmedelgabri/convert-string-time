@@ -1,12 +1,12 @@
-import {describe, test} from 'node:test'
-import assert from 'node:assert/strict'
+import {describe, test} from 'bun:test'
+import {expect} from 'bun:test'
 import {to24Hours, to12Hours, parseTime, isValidTimeFormat} from './index.js'
 
 const FALSY_VALUES = [null, undefined, '', 0, false, NaN]
 const BAD_INPUTS = [...FALSY_VALUES, '55:2', '99:00', '00:0', '1:2am']
 
 describe("'to12Hours' utility", () => {
-  const testCases: Array<[unknown, string | null]> = [
+  test.each([
     ['23:00', '11:00 PM'],
     ['00:00', '12:00 AM'],
     ['09:00', '09:00 AM'],
@@ -21,18 +21,14 @@ describe("'to12Hours' utility", () => {
     ['', null],
     ['5:27 PM', null],
     ...BAD_INPUTS.map((i) => [i, null] as [unknown, null]),
-  ]
-
-  for (const [input, expected] of testCases) {
-    test(`convert ${input} to ${expected}`, () => {
-      const result = to12Hours(input as string)
-      assert.deepStrictEqual(result, expected)
-    })
-  }
+  ])('convert %p to %p', (input, expected) => {
+    const result = to12Hours(input as string)
+    expect(result).toEqual(expected)
+  })
 })
 
 describe("'to24Hours' utility", () => {
-  const testCases: Array<[unknown, string | null]> = [
+  test.each([
     ['11:00 PM', '23:00'],
     ['12:00am', '00:00'],
     ['09:00 am', '09:00'],
@@ -46,20 +42,16 @@ describe("'to24Hours' utility", () => {
     ['', null],
     ['17:27', null],
     ...BAD_INPUTS.map((i) => [i, null] as [unknown, null]),
-  ]
-
-  for (const [input, expected] of testCases) {
-    test(`convert ${input} to ${expected}`, () => {
-      const result = to24Hours(input as string)
-      assert.deepStrictEqual(result, expected)
-    })
-  }
+  ])('convert %p to %p', (input, expected) => {
+    const result = to24Hours(input as string)
+    expect(result).toEqual(expected)
+  })
 })
 
 describe("'parseTime' utility", () => {
   test('detects and converts 12-hour format', () => {
     const result = parseTime('11:00 PM')
-    assert.deepStrictEqual(result, {
+    expect(result).toEqual({
       format: '12h',
       time12h: '11:00 PM',
       time24h: '23:00',
@@ -68,7 +60,7 @@ describe("'parseTime' utility", () => {
 
   test('detects and converts 24-hour format', () => {
     const result = parseTime('23:00')
-    assert.deepStrictEqual(result, {
+    expect(result).toEqual({
       format: '24h',
       time12h: '11:00 PM',
       time24h: '23:00',
@@ -77,14 +69,14 @@ describe("'parseTime' utility", () => {
 
   test('handles noon correctly', () => {
     const result12h = parseTime('12:00 PM')
-    assert.deepStrictEqual(result12h, {
+    expect(result12h).toEqual({
       format: '12h',
       time12h: '12:00 PM',
       time24h: '12:00',
     })
 
     const result24h = parseTime('12:00')
-    assert.deepStrictEqual(result24h, {
+    expect(result24h).toEqual({
       format: '24h',
       time12h: '12:00 PM',
       time24h: '12:00',
@@ -93,14 +85,14 @@ describe("'parseTime' utility", () => {
 
   test('handles midnight correctly', () => {
     const result12h = parseTime('12:00 AM')
-    assert.deepStrictEqual(result12h, {
+    expect(result12h).toEqual({
       format: '12h',
       time12h: '12:00 AM',
       time24h: '00:00',
     })
 
     const result24h = parseTime('00:00')
-    assert.deepStrictEqual(result24h, {
+    expect(result24h).toEqual({
       format: '24h',
       time12h: '12:00 AM',
       time24h: '00:00',
@@ -108,13 +100,13 @@ describe("'parseTime' utility", () => {
   })
 
   test('handles various 12-hour formats', () => {
-    assert.deepStrictEqual(parseTime('9:30 AM'), {
+    expect(parseTime('9:30 AM')).toEqual({
       format: '12h',
       time12h: '9:30 AM',
       time24h: '09:30',
     })
 
-    assert.deepStrictEqual(parseTime('5:45PM'), {
+    expect(parseTime('5:45PM')).toEqual({
       format: '12h',
       time12h: '5:45PM',
       time24h: '17:45',
@@ -122,13 +114,13 @@ describe("'parseTime' utility", () => {
   })
 
   test('handles various 24-hour formats', () => {
-    assert.deepStrictEqual(parseTime('09:30'), {
+    expect(parseTime('09:30')).toEqual({
       format: '24h',
       time12h: '09:30 AM',
       time24h: '09:30',
     })
 
-    assert.deepStrictEqual(parseTime('17:45'), {
+    expect(parseTime('17:45')).toEqual({
       format: '24h',
       time12h: '5:45 PM',
       time24h: '17:45',
@@ -136,19 +128,19 @@ describe("'parseTime' utility", () => {
   })
 
   test('returns null for invalid formats', () => {
-    assert.deepStrictEqual(parseTime('invalid'), {
+    expect(parseTime('invalid')).toEqual({
       format: null,
       time12h: null,
       time24h: null,
     })
 
-    assert.deepStrictEqual(parseTime('25:00'), {
+    expect(parseTime('25:00')).toEqual({
       format: null,
       time12h: null,
       time24h: null,
     })
 
-    assert.deepStrictEqual(parseTime(''), {
+    expect(parseTime('')).toEqual({
       format: null,
       time12h: null,
       time24h: null,
@@ -157,7 +149,7 @@ describe("'parseTime' utility", () => {
 })
 
 describe("'isValidTimeFormat' utility", () => {
-  const testCases: Array<[string, boolean]> = [
+  test.each([
     ['23:00', true],
     ['00:00', true],
     ['12:30', true],
@@ -175,11 +167,7 @@ describe("'isValidTimeFormat' utility", () => {
     ['', false],
     ['12:60', false],
     ['12:5', false],
-  ]
-
-  for (const [input, expected] of testCases) {
-    test(`validates ${input} as ${expected}`, () => {
-      assert.strictEqual(isValidTimeFormat(input), expected)
-    })
-  }
+  ])('validates %p as %p', (input, expected) => {
+    expect(isValidTimeFormat(input)).toBe(expected)
+  })
 })

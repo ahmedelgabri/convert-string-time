@@ -19,6 +19,9 @@
     "type": "git",
     "url": "git+https://github.com/ahmedelgabri/convert-string-time.git"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "dist"
   ],
@@ -33,29 +36,35 @@
       "require": "./dist/index.cjs.js"
     }
   },
+  "prettier": {
+    "printWidth": 80,
+    "useTabs": false,
+    "tabWidth": 2,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "semi": false,
+    "bracketSpacing": false,
+    "endOfLine": "lf"
+  },
   "scripts": {
-    "clean": "rm -rf dist",
-    "build": "pnpm clean && rolldown -c rolldown.config.ts && tsc --project tsconfig.build.json --emitDeclarationOnly",
-    "test": "node --import tsx --test index.test.ts",
-    "typecheck": "tsc --noEmit",
+    "build": "bun run build.ts",
+    "test": "bun test",
+    "typecheck": "bun run lint",
     "lint": "oxlint --type-aware --type-check .",
-    "format:check": "oxfmt --no-error-on-unmatched-pattern --check .",
-    "format": "oxfmt --no-error-on-unmatched-pattern .",
-    "prepare": "pnpm build && husky install",
-    "prepack": "pnpm build",
-    "prepublishOnly": "pnpm test && pnpm build",
-    "release:patch": "pnpm version patch && git push --follow-tags",
-    "release:minor": "pnpm version minor && git push --follow-tags",
-    "release:major": "pnpm version major && git push --follow-tags"
+    "format:check": "prettier --ignore-unknown --check .",
+    "format": "prettier --ignore-unknown --write .",
+    "prepare": "bun run build && husky install",
+    "prepack": "bun run build",
+    "prepublishOnly": "bun test && bun run build",
+    "publish": "bun run publish.ts"
   },
   "devDependencies": {
-    "@types/node": "^22.10.2",
+    "@types/bun": "^1.3.5",
     "husky": "^6.0.0",
-    "oxfmt": "^0.20.0",
+    "npm": "^11.7.0",
     "oxlint": "^1.35.0",
     "oxlint-tsgolint": "^0.10.0",
-    "rolldown": "^1.0.0-beta.57",
-    "tsx": "^4.19.2",
+    "prettier": "^3.4.2",
     "typescript": "^5.7.2"
   }
 }
