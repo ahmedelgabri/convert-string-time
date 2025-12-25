@@ -56,7 +56,7 @@
     "prepare": "bun run build && husky install",
     "prepack": "bun run build",
     "prepublishOnly": "bun test && bun run build",
-    "publish": "bun run publish.ts"
+    "release": "bun run publish.ts"
   },
   "devDependencies": {
     "@types/bun": "^1.3.5",
