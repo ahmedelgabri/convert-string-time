@@ -50,7 +50,7 @@
     "build": "bun run build.ts",
     "test": "bun test",
     "typecheck": "bun run lint",
-    "lint": "oxlint --type-aware --type-check .",
+    "lint": "oxlint --type-aware --type-check --report-unused-disable-directives --quiet .",
     "format:check": "prettier --ignore-unknown --check .",
     "format": "prettier --ignore-unknown --write .",
     "prepare": "bun run build && husky install",
